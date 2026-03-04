@@ -1522,10 +1522,16 @@
           return;
         }
 
+        const isExactPartQuery = /^\d{5}\s*-?\s*[A-Z0-9]{2,4}\s*-?\s*[A-Z0-9]{3}$/i.test(query);
+        const hasLetters = /[A-Za-z]/.test(query);
+        const hasDigits = /\d/.test(query);
+        const hasSpaces = /\s/.test(query);
+        const forceDescriptionMode = hasLetters && hasSpaces && !isExactPartQuery;
+
         let mode = "part";
         let matchedKeys = [];
         let matchedEntries = [];
-        if (normalized.length >= 10 && /^\d{5}[A-Z0-9]{2,4}[A-Z0-9]{3}$/.test(normalized)) {
+        if (normalized.length >= 10 && /^\d{5}[A-Z0-9]{2,4}[A-Z0-9]{3}$/.test(normalized) && !forceDescriptionMode) {
           const exact = bomCompactIndex.get(normalized) || [];
           if (exact.length > 0) {
             matchedKeys = exact.slice(0, 20);
@@ -1534,7 +1540,7 @@
               .filter((k) => normalizePartCompact(k).includes(normalized))
               .slice(0, 20);
           }
-        } else if (normalized.length >= 5 && /\d/.test(normalized)) {
+        } else if (normalized.length >= 5 && hasDigits && !forceDescriptionMode) {
           matchedKeys = bomKeys
             .filter((k) => {
               const keyCompact = normalizePartCompact(k);
@@ -1562,7 +1568,11 @@
 
         if (matchedKeys.length === 0 && matchedEntries.length === 0) {
           partResults.classList.remove('hidden');
-          partResults.innerHTML = `<div class="part-row">Part number <strong>${escapeHtml(query)}</strong> tidak ditemukan di index BOM.</div>`;
+          if (mode === "description" || forceDescriptionMode) {
+            partResults.innerHTML = `<div class="part-row">Pencarian <strong>${escapeHtml(query)}</strong> tidak ditemukan di index BOM.</div>`;
+          } else {
+            partResults.innerHTML = `<div class="part-row">Part number <strong>${escapeHtml(query)}</strong> tidak ditemukan di index BOM.</div>`;
+          }
           status.textContent = `Tidak ditemukan hasil BOM untuk "${query}".`;
           return;
         }
