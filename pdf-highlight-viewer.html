@@ -56,6 +56,32 @@
       text-overflow:ellipsis;
       white-space:nowrap;
     }
+    .zoom-controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .zoom-controls button{
+      border:1px solid #d97706;
+      background:var(--accent);
+      color:#111827;
+      font-weight:700;
+      border-radius:6px;
+      padding:8px 12px;
+      font-size:20px;
+      cursor:pointer;
+      line-height:1;
+      min-width:44px;
+      min-height:44px;
+    }
+    .zoom-level{
+      font-size:17px;
+      color:var(--muted);
+      min-width:72px;
+      text-align:center;
+      font-weight:700;
+    }
     .focus-info{
       margin:0 0 6px 0;
       background:#fff7ed;
@@ -99,7 +125,6 @@
     }
     #pdfCanvas{
       display:block;
-      max-width:100%;
       height:auto;
     }
     #highlightCanvas{
@@ -120,6 +145,12 @@
   <main>
     <div class="toolbar">
       <a id="openOriginal" href="#" target="_blank" rel="noopener">Buka PDF Asli</a>
+      <div class="zoom-controls">
+        <button id="zoomOut" type="button" aria-label="Zoom out">-</button>
+        <div class="zoom-level" id="zoomLevel">100%</div>
+        <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+        <button id="zoomReset" type="button" aria-label="Reset zoom">Reset</button>
+      </div>
       <div class="meta" id="meta">Memuat PDF...</div>
     </div>
     <div class="focus-info" id="focusInfo">Halaman - | Kata kunci -<small>Info cepat pencarian BOM</small></div>
@@ -149,8 +180,18 @@
     const pdfCanvas = document.getElementById("pdfCanvas");
     const hlCanvas = document.getElementById("highlightCanvas");
     const pdfFrame = document.getElementById("pdfFrame");
+    const zoomOutBtn = document.getElementById("zoomOut");
+    const zoomInBtn = document.getElementById("zoomIn");
+    const zoomResetBtn = document.getElementById("zoomReset");
+    const zoomLevelEl = document.getElementById("zoomLevel");
     const pdfCtx = pdfCanvas.getContext("2d");
     const hlCtx = hlCanvas.getContext("2d");
+    const isMobile = window.innerWidth < 900;
+    const MIN_SCALE = 0.9;
+    const MAX_SCALE = 4.0;
+    const ZOOM_STEP = 0.25;
+    const DEFAULT_SCALE = isMobile ? 1.8 : 2.3;
+    let currentScale = DEFAULT_SCALE;
 
     if (!file) {
       metaEl.textContent = "Parameter file tidak ditemukan.";
@@ -174,12 +215,16 @@
       pdfFrame.src = targetUrl;
     }
 
+    function setZoomLabel() {
+      zoomLevelEl.textContent = `${Math.round(currentScale * 100)}%`;
+    }
+
     async function renderWithHighlight() {
       const loadingTask = pdfjsLib.getDocument(absolutePdfUrl);
       const pdf = await loadingTask.promise;
       const safePage = Math.min(Math.max(1, pageNum), pdf.numPages);
       const page = await pdf.getPage(safePage);
-      const viewport = page.getViewport({ scale: window.innerWidth < 900 ? 1.8 : 2.3 });
+      const viewport = page.getViewport({ scale: currentScale });
 
       pdfCanvas.width = viewport.width;
       pdfCanvas.height = viewport.height;
@@ -213,9 +258,25 @@
         }
       }
 
-      metaEl.textContent = `File: ${absolutePdfUrl} | Highlight: ${hitCount}`;
+      setZoomLabel();
+      metaEl.textContent = `File: ${absolutePdfUrl} | Zoom: ${Math.round(currentScale * 100)}% | Highlight: ${hitCount}`;
       focusInfoEl.innerHTML = `Halaman ${safePage} / ${pdf.numPages} | Kata kunci: ${search || "-"}<small>Highlight ditemukan: ${hitCount}</small>`;
     }
+
+    async function applyZoom(scale) {
+      const bounded = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale));
+      if (Math.abs(bounded - currentScale) < 0.001) return;
+      currentScale = bounded;
+      try {
+        await renderWithHighlight();
+      } catch (err) {
+        showFallback(`Gagal render zoom: ${err && err.message ? err.message : err}`);
+      }
+    }
+
+    zoomOutBtn.addEventListener("click", () => applyZoom(currentScale - ZOOM_STEP));
+    zoomInBtn.addEventListener("click", () => applyZoom(currentScale + ZOOM_STEP));
+    zoomResetBtn.addEventListener("click", () => applyZoom(DEFAULT_SCALE));
 
     if (window.location.protocol === "file:") {
       showFallback("Mode file:// tidak mendukung highlight warna yang stabil. Jalankan lewat http://localhost agar highlight aktif.");
