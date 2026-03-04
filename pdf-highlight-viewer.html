@@ -142,6 +142,24 @@
       font-weight:400;
       color:#92400e;
     }
+    .het-pill{
+      display:inline-block;
+      margin-left:10px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid #d97706;
+      background:#f59e0b;
+      color:#111827;
+      font-size:20px;
+      font-weight:700;
+      vertical-align:middle;
+      white-space:nowrap;
+    }
+    .het-pill.missing{
+      background:#fef3c7;
+      color:#78350f;
+      border-color:#f59e0b;
+    }
     .viewer{
       background:var(--card);
       border:1px solid var(--border);
@@ -220,6 +238,7 @@
     </div>
   </main>
 
+  <script src="het-index.js?v=20260304-2"></script>
   <script type="module">
     import * as pdfjsLib from "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.min.mjs";
     pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.mjs";
@@ -270,6 +289,37 @@
 
     const norm = (v) => String(v || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
     const targetNorm = norm(search);
+    const hetPrices = window.HET_INDEX && window.HET_INDEX.prices ? window.HET_INDEX.prices : null;
+
+    const esc = (v) => String(v || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+    const formatRupiah = (value) => {
+      if (typeof value !== "number" || Number.isNaN(value)) return "-";
+      return `Rp ${new Intl.NumberFormat("id-ID").format(value)}`;
+    };
+
+    function resolveHet(partCompact) {
+      if (!hetPrices || !partCompact) return null;
+      if (hetPrices[partCompact]) return hetPrices[partCompact];
+      if (partCompact.length > 11 && hetPrices[partCompact.slice(0, 11)]) return hetPrices[partCompact.slice(0, 11)];
+      return null;
+    }
+
+    const hetRecord = resolveHet(targetNorm);
+
+    function renderFocusInfo(pageLabel, subLabel) {
+      const keyword = esc(search || "-");
+      let hetBadge = '<span class="het-pill missing">HET: tidak tersedia</span>';
+      if (hetRecord) {
+        hetBadge = `<span class="het-pill">HET: ${esc(formatRupiah(hetRecord.price))}</span>`;
+      }
+      focusInfoEl.innerHTML = `${pageLabel} | Kata kunci: ${keyword} ${hetBadge}<small>${subLabel}</small>`;
+    }
 
     function setLoadingState(show, text, percent) {
       loadStatusEl.style.display = show ? "flex" : "none";
@@ -369,7 +419,7 @@
 
       setZoomLabel();
       metaEl.textContent = `File: ${absolutePdfUrl} | Zoom: ${Math.round(currentScale * 100)}% | Highlight: ${hitCount}`;
-      focusInfoEl.innerHTML = `Halaman ${safePage} / ${pdf.numPages} | Kata kunci: ${search || "-"}<small>Highlight ditemukan: ${hitCount}</small>`;
+      renderFocusInfo(`Halaman ${safePage} / ${pdf.numPages}`, `Highlight ditemukan: ${hitCount}`);
       centerPdfInView();
       setLoadingState(false);
     }
@@ -392,14 +442,14 @@
     if (window.location.protocol === "file:") {
       showFallback("Mode file:// tidak mendukung highlight warna yang stabil. Jalankan lewat http://localhost agar highlight aktif.");
       metaEl.textContent = `File: ${absolutePdfUrl} | Fallback viewer`;
-      focusInfoEl.innerHTML = `Halaman ${pageNum} | Kata kunci: ${search || "-"}<small>Mode fallback viewer</small>`;
+      renderFocusInfo(`Halaman ${pageNum}`, "Mode fallback viewer");
     } else {
       try {
         await renderWithHighlight();
       } catch (err) {
         showFallback(`Gagal highlight otomatis: ${err && err.message ? err.message : err}`);
         metaEl.textContent = `File: ${absolutePdfUrl} | Fallback viewer`;
-        focusInfoEl.innerHTML = `Halaman ${pageNum} | Kata kunci: ${search || "-"}<small>Mode fallback viewer</small>`;
+        renderFocusInfo(`Halaman ${pageNum}`, "Mode fallback viewer");
       }
     }
   </script>
