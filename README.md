@@ -1,44 +1,52 @@
-﻿# Part Catalog (Honda) - GitHub Pages
+# Honda Parts Catalog (GitHub Pages)
 
-Static catalog website with:
-- Category tables (Cub, Matic, Sport)
-- Client-side search/filter
-- BOM index lookup (part number + description)
-- PDF highlight viewer for parts references
+Website katalog suku cadang Honda berbasis static site.
 
-## Copyright / License
-This repository is **not open source**.
-See `WARNING.txt` for all-rights-reserved notice.
+Live site:
+`https://ornandol.github.io/PartsCatalog/`
 
-## Repository Structure
-- `index.html` - Main catalog app
-- `bom-index.js` - Search index for part/BOM lookup
-- `pdf-highlight-viewer.html` - Viewer used by search results
-- `downloads/` - PDF catalog assets by category
+## Fitur Utama
+- Tabel katalog per kategori: `Cub`, `Matic`, `Sport`
+- Search client-side untuk:
+  - tipe motor/kode motor
+  - part number
+  - deskripsi part (BOM)
+- Hasil search menampilkan:
+  - detail part dari BOM
+  - harga HET (jika tersedia)
+  - link ke viewer PDF dengan highlight otomatis
+- PDF viewer dengan:
+  - zoom controls
+  - highlight kata kunci part number
+  - bubble HET pada header viewer
+
+## Struktur Repository
+- `index.html`: halaman utama katalog + search
+- `bom-index.js`: index BOM (`window.BOM_INDEX`)
+- `het-index.js`: index harga HET (`window.HET_INDEX`)
+- `het-index.json`: versi JSON dari index HET
+- `pdf-highlight-viewer.html`: viewer PDF + highlight + info HET
+- `downloads/`: semua aset PDF katalog
   - `downloads/cub/`
   - `downloads/matic/`
   - `downloads/sport/`
-- `docs/` - Operational docs
+- `docs/`: dokumentasi internal
+  - `docs/SEARCH_SYSTEM.md`
+  - `docs/DEPLOYMENT.md`
+- `WARNING.txt`: pemberitahuan hak cipta
 
-## GitHub Pages Deployment
-Use either method:
-1. Branch deploy: `main` + `/(root)` in Pages settings.
-2. Or GitHub Actions (custom) if you want CI-based deploy.
+## Data Index yang Dipakai Frontend
+- BOM: dibaca dari `window.BOM_INDEX.parts`
+- HET: dibaca dari `window.HET_INDEX.prices`
+- Kunci part number dinormalisasi ke format compact tanpa karakter non-alfanumerik untuk matching yang konsisten.
 
-The published URL is typically:
-`https://<username>.github.io/<repo>/`
+## Deploy GitHub Pages
+Gunakan source:
+- Branch: `main`
+- Folder: `/(root)`
 
-## Search Catalog System
-Search runs fully client-side in browser:
-- Motor table filtering by keyword
-- BOM part lookup from `window.BOM_INDEX.parts`
-- PDF viewer deep-link generation per match
+Setelah push ke `main`, tunggu proses publish GitHub Pages selesai (biasanya 1-5 menit), lalu lakukan hard refresh browser (`Ctrl+F5`).
 
-See `docs/SEARCH_SYSTEM.md` for implementation notes.
-
-## Important Security Note
-`.gitignore` helps prevent future accidental commits,
-but it does **not** protect files already committed or already public.
-For sensitive/private data:
-- Keep repository private, or
-- Remove sensitive history before publishing.
+## Catatan Lisensi
+Repository ini **bukan open-source**.
+Semua hak cipta dilindungi. Lihat `WARNING.txt` untuk detail.
