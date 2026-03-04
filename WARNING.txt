@@ -1,0 +1,9 @@
+﻿WARNING - COPYRIGHT NOTICE
+
+Copyright (c) 2026 linos. All rights reserved.
+
+This project and all associated files, including but not limited to HTML, JavaScript, PDF assets, and documentation, are proprietary.
+
+No license is granted for use, copying, modification, distribution, publication, sublicensing, or sale without prior written permission from the copyright holder.
+
+Unauthorized use is strictly prohibited.

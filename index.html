@@ -1,0 +1,1690 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Katalog Suku Cadang Motor Honda</title>
+  <style>
+    :root{
+      --text:#1f2937;
+      --muted:#4b5563;
+      --link:#1d41e1;
+      --accent:#f59e0b;
+      --border:#d1d5db;
+      --header:#f52e0b;
+      --header-text:#ffffff;
+      --bg:#ffffff;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    main{
+      max-width:1200px;
+      margin:0 auto;
+      padding:22px 24px 40px;
+    }
+
+    h1{
+      margin:0 0 10px 0;
+      font-size:28px;
+      font-weight:700;
+    }
+
+    p{ margin:8px 0; color:var(--muted); }
+
+    ul{ margin:8px 0 14px 20px; }
+
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .view-link{ font-weight:700; white-space:nowrap; }
+
+    h2{
+      margin:22px 0 10px;
+      font-size:18px;
+      font-weight:700;
+      color:#111827;
+    }
+
+    .table-wrap{
+      border:1px solid var(--border);
+      border-radius:6px;
+      overflow:hidden;
+      background:#fff;
+      margin-bottom:18px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    }
+
+    thead th{
+      background:var(--header);
+      color:var(--header-text);
+      font-weight:700;
+      text-align:left;
+      padding:10px 12px;
+      border-right:1px solid #fbbf24;
+      white-space:nowrap;
+    }
+
+    thead th:last-child{ border-right:none; }
+
+    tbody td{
+      padding:10px 12px;
+      border-top:1px solid var(--border);
+      border-right:1px solid var(--border);
+      vertical-align:top;
+    }
+
+    tbody td:last-child{ border-right:none; }
+
+    tbody tr:nth-child(even){ background:#fafafa; }
+
+    .num{ width:40px; text-align:center; }
+
+    .search-panel{
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:14px;
+      margin:14px 0 18px;
+      background:#fff7ed;
+    }
+
+    .search-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .search-row input{
+      flex:1 1 320px;
+      min-width:220px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:6px;
+      font-size:14px;
+    }
+
+    .search-row button{
+      padding:10px 14px;
+      border:1px solid #d97706;
+      border-radius:6px;
+      background:#f59e0b;
+      color:#111827;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .search-row button[disabled]{
+      cursor:not-allowed;
+      opacity:.55;
+    }
+
+    .search-status{
+      margin-top:8px;
+      font-size:13px;
+      color:#374151;
+      min-height:1.2em;
+    }
+
+    .part-results{
+      margin-top:10px;
+      border:1px solid var(--border);
+      border-radius:6px;
+      background:#fff;
+      max-height:260px;
+      overflow:auto;
+      font-size:13px;
+      padding:8px;
+    }
+
+    .part-results.hidden{ display:none; }
+
+    .part-row{
+      padding:8px;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .part-row:last-child{ border-bottom:none; }
+
+    .part-row strong{ color:#111827; }
+
+    .row-hidden{ display:none; }
+
+    @media (max-width: 900px){
+      main{ padding:18px; }
+      table, thead, tbody, th, td, tr{ display:block; }
+      thead{ display:none; }
+      .table-wrap{ border:0; }
+      tbody tr{ border:1px solid var(--border); border-radius:6px; margin-bottom:12px; background:#fff; }
+      tbody td{ border-right:none; }
+      tbody td::before{
+        content: attr(data-label) ": ";
+        font-weight:700;
+        color:#111827;
+      }
+      .num{ text-align:left; width:auto; }
+      .search-row input{ flex-basis:100%; min-width:0; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Katalog Suku Cadang Motor Honda</h1>
+    <p>Berikut adalah katalog suku cadang motor Honda yang bisa anda download dan lihat.</p>
+    <p>Untuk mempermudah pencarian kami membagi menjadi 3 kategori motor berikut ini:</p>
+
+    <ul>
+      <li><a href="#cub">Cub</a></li>
+      <li><a href="#matic">Matic</a></li>
+      <li><a href="#sport">Sport</a></li>
+    </ul>
+
+    <p>Ingin mencari harga suku cadang? Lihat disini untuk <a href="#">daftar harga suku cadang motor Honda terbaru</a>.</p>
+    <div class="search-panel">
+      <div class="search-row">
+        <input id="partSearchInput" type="text" placeholder="Cari tipe motor, no part, atau deskripsi (contoh: headlight assy)" autocomplete="off" />
+        <button id="moonshineVoiceBtn" type="button">Voice</button>
+        <button id="clearSearchBtn" type="button">Reset</button>
+      </div>
+      <p class="search-status" id="searchStatus">Cari tipe motor, no part, atau deskripsi. Voice tetap aktif untuk tipe motor.</p>
+      <div class="part-results hidden" id="partResults"></div>
+    </div>
+
+    <h2 id="cub">Katalog Suku Cadang Motor Honda Cub</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Tipe Motor</th>
+            <th>Kode Motor</th>
+            <th>Tahun Pembuatan</th>
+            <th>No Seri Mesin</th>
+            <th>No Seri Rangka</th>
+            <th>Download</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num" data-label="#">1</td>
+            <td data-label="Tipe Motor"><a href="#">Honda WIN</a></td>
+            <td data-label="Kode Motor">GF6</td>
+            <td data-label="Tahun Pembuatan">1984 - 2005</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">2</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Grand</a></td>
+            <td data-label="Kode Motor">GN5</td>
+            <td data-label="Tahun Pembuatan">1991 - 1998</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">3</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Karisma</a></td>
+            <td data-label="Kode Motor">KPH</td>
+            <td data-label="Tahun Pembuatan">2002 - 2005</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">4</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Kirana</a></td>
+            <td data-label="Kode Motor">KPW</td>
+            <td data-label="Tahun Pembuatan">2002 - 2005</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">5</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Legenda</a></td>
+            <td data-label="Kode Motor">KFV</td>
+            <td data-label="Tahun Pembuatan">2001 - 2003</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">6</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Revo 100</a></td>
+            <td data-label="Kode Motor">KVR</td>
+            <td data-label="Tahun Pembuatan">2007 - 2010</td>
+            <td data-label="No Seri Mesin">HB3*E<br>HB4*E</td>
+            <td data-label="No Seri Rangka">MH1HB3<br>MH1HB4</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">7</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Revo 110 Carbu</a></td>
+            <td data-label="Kode Motor">KWB</td>
+            <td data-label="Tahun Pembuatan">2009 - 2014</td>
+            <td data-label="No Seri Mesin">JBC1E<br>JBC2E</td>
+            <td data-label="No Seri Rangka">MH1JBC11<br>MH1JBC11</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">8</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Revo AT</a></td>
+            <td data-label="Kode Motor">KWZ</td>
+            <td data-label="Tahun Pembuatan">2010 - 2013</td>
+            <td data-label="No Seri Mesin">JBD1E</td>
+            <td data-label="No Seri Rangka">MH1JBD11</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">9</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Revo FI</a></td>
+            <td data-label="Kode Motor">K03</td>
+            <td data-label="Tahun Pembuatan">Januari 2014 - Sekarang</td>
+            <td data-label="No Seri Mesin">JBK1E<br>JBK2E<br>JBK3E</td>
+            <td data-label="No Seri Rangka">MH1JBK1<br>MH1JBK2<br>MH1JBK3</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">10</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Blade 110</a></td>
+            <td data-label="Kode Motor">KWB</td>
+            <td data-label="Tahun Pembuatan">2008 - 2011</td>
+            <td data-label="No Seri Mesin">JBB*E</td>
+            <td data-label="No Seri Rangka">MH1JBB</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">11</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Blade 110</a></td>
+            <td data-label="Kode Motor">K07</td>
+            <td data-label="Tahun Pembuatan">2011 - 2014</td>
+            <td data-label="No Seri Mesin">JBH1E</td>
+            <td data-label="No Seri Rangka">MH1JBH1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">12</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Blade 125 FI</a></td>
+            <td data-label="Kode Motor">K47</td>
+            <td data-label="Tahun Pembuatan">April 2014 - Sekarang</td>
+            <td data-label="No Seri Mesin">JBM1E<br>JBL1E</td>
+            <td data-label="No Seri Rangka">MH1JBM1<br>MH1JBL1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">13</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra 100</a></td>
+            <td data-label="Kode Motor">KEV</td>
+            <td data-label="Tahun Pembuatan">1997 - 2002</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">14</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra FIT New</a></td>
+            <td data-label="Kode Motor">KTL</td>
+            <td data-label="Tahun Pembuatan">2006 - 2007</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">15</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra FIT</a></td>
+            <td data-label="Kode Motor">KRS</td>
+            <td data-label="Tahun Pembuatan">2006 - 2007</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">16</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra FIT X</a></td>
+            <td data-label="Kode Motor">KTL</td>
+            <td data-label="Tahun Pembuatan">2005 - 2009</td>
+            <td data-label="No Seri Mesin">JB61E<br>JB62E</td>
+            <td data-label="No Seri Rangka">MH1JB61<br>MH1JB62</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">17</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra X 125</a></td>
+            <td data-label="Kode Motor">KTM</td>
+            <td data-label="Tahun Pembuatan">2005 - 2013</td>
+            <td data-label="No Seri Mesin">JB4*E<br>JB5*E</td>
+            <td data-label="No Seri Rangka">MH1JB4<br>MH1JB5</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online</a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">18</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra X 125 PGM-FI</a></td>
+            <td data-label="Kode Motor">KTM</td>
+            <td data-label="Tahun Pembuatan">2006 - 2011</td>
+            <td data-label="No Seri Mesin">JB61E<br>JB62E</td>
+            <td data-label="No Seri Rangka">MH1JB61<br>MH1JB62</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">19</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra X 125 FI</a></td>
+            <td data-label="Kode Motor">KVL</td>
+            <td data-label="Tahun Pembuatan">2007 - 2014</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">20</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra X 125 FI</a></td>
+            <td data-label="Kode Motor">K41</td>
+            <td data-label="Tahun Pembuatan">Februari 2014 - Sekarang</td>
+            <td data-label="No Seri Mesin">JBN1E</td>
+            <td data-label="No Seri Rangka">MH1JBN1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">21</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra X 125 Helm In</a></td>
+            <td data-label="Kode Motor">KYZ</td>
+            <td data-label="Tahun Pembuatan">September 2011 - 2019</td>
+            <td data-label="No Seri Mesin">JBF1E<br>JBG1E</td>
+            <td data-label="No Seri Rangka">MH1JBF1<br>MH1JBG1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">22</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra GTR 150</a></td>
+            <td data-label="Kode Motor">K56F</td>
+            <td data-label="Tahun Pembuatan">Mei 2016 - 2018</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">23</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Supra GTR 150</a></td>
+            <td data-label="Kode Motor">K56W</td>
+            <td data-label="Tahun Pembuatan">September 2019 - Sekarang</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">24</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Super Cub 125</a></td>
+            <td data-label="Kode Motor">K0G</td>
+            <td data-label="Tahun Pembuatan">September 2018 - Sekarang</td>
+            <td data-label="No Seri Mesin">JA48E</td>
+            <td data-label="No Seri Rangka">MLHJA48</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">25</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CT125 Hunter Cub</a></td>
+            <td data-label="Kode Motor">K2E</td>
+            <td data-label="Tahun Pembuatan">Juni 2020 - Sekarang</td>
+            <td data-label="No Seri Mesin">JA55E</td>
+            <td data-label="No Seri Rangka">MLHJA559</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="matic">Katalog Suku Cadang Motor Honda Matic</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Tipe Motor</th>
+            <th>Kode Motor</th>
+            <th>Tahun Pembuatan</th>
+            <th>No Seri Mesin</th>
+            <th>No Seri Rangka</th>
+            <th>Download</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num" data-label="#">1</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT</a></td>
+            <td data-label="Kode Motor">KVY</td>
+            <td data-label="Tahun Pembuatan">2008 - 2012</td>
+            <td data-label="No Seri Mesin">JF21E</td>
+            <td data-label="No Seri Rangka">MH1JF</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">2</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT FI</a></td>
+            <td data-label="Kode Motor">K25A</td>
+            <td data-label="Tahun Pembuatan">2012 - 2014</td>
+            <td data-label="No Seri Mesin">JFD2E<br>JFE1E<br>JFD1E</td>
+            <td data-label="No Seri Rangka">MH1JFD2<br>MH1JFE1<br>MH1JFD1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">3</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT eSP</a></td>
+            <td data-label="Kode Motor">K25G-H</td>
+            <td data-label="Tahun Pembuatan">2015 - 2016</td>
+            <td data-label="No Seri Mesin">JFP2E</td>
+            <td data-label="No Seri Rangka">MH1JFP2<br>MH1JFP1<br>MH1JFR1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">4</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT POP eSP</a></td>
+            <td data-label="Kode Motor">K61</td>
+            <td data-label="Tahun Pembuatan">Desember 2014 - 2020</td>
+            <td data-label="No Seri Mesin">JFS2E<br>JFS1E<br>JFT1E</td>
+            <td data-label="No Seri Rangka">MH1JFS2<br>MH1JFS1<br>MH1JFT1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">5</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT eSP</a></td>
+            <td data-label="Kode Motor">K81</td>
+            <td data-label="Tahun Pembuatan">Agustus 2016 - 2019</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">6</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT Street eSP</a></td>
+            <td data-label="Kode Motor">K81</td>
+            <td data-label="Tahun Pembuatan">Oktober 2016 - 2019</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">7</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT K1A</a></td>
+            <td data-label="Kode Motor">K1A</td>
+            <td data-label="Tahun Pembuatan">Januari 2020 - 2024</td>
+            <td data-label="No Seri Mesin">JM82E<br>JM81E<br>JM91E</td>
+            <td data-label="No Seri Rangka">MH1JM</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">8</td>
+            <td data-label="Tipe Motor"><a href="#">Honda BeAT Street eSP</a></td>
+            <td data-label="Kode Motor">K1A</td>
+            <td data-label="Tahun Pembuatan">Januari 2020 - 2024</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">9</td>
+            <td data-label="Tipe Motor"><a href="#">Honda New BeAT K1AL</a></td>
+            <td data-label="Kode Motor">K1AL</td>
+            <td data-label="Tahun Pembuatan">Juni 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">JMF2E<br>JME1E</td>
+            <td data-label="No Seri Rangka">MH1JMF2<br>MH1JME1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">10</td>
+            <td data-label="Tipe Motor"><a href="#">Honda New BeAT Street K1AL</a></td>
+            <td data-label="Kode Motor">K1AL</td>
+            <td data-label="Tahun Pembuatan">Juni 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">JMG1E<br>JME1E</td>
+            <td data-label="No Seri Rangka">MH1JMG1<br>MH1JME1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">11</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Genio</a></td>
+            <td data-label="Kode Motor">K0J</td>
+            <td data-label="Tahun Pembuatan">Juni 2019 - 2022</td>
+            <td data-label="No Seri Mesin">JM61E<br>JM71E</td>
+            <td data-label="No Seri Rangka">MH1JM61<br>MH1JM71</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">12</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Genio</a></td>
+            <td data-label="Kode Motor">K0JN</td>
+            <td data-label="Tahun Pembuatan">Maret 2022 - September 2025</td>
+            <td data-label="No Seri Mesin">JMA1E<br>JMA1E</td>
+            <td data-label="No Seri Rangka">MH1JMB1<br>MH1JMA1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">13</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Genio</a></td>
+            <td data-label="Kode Motor">K0JB</td>
+            <td data-label="Tahun Pembuatan">September 2025 - Sekarang</td>
+            <td data-label="No Seri Mesin">JMA1E<br>JMB1E</td>
+            <td data-label="No Seri Rangka">MH1JMA17<br>MH1JMB1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">14</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Spacy</a></td>
+            <td data-label="Kode Motor">KZLN</td>
+            <td data-label="Tahun Pembuatan">Mei 2011 - 2013</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">15</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Spacy FI</a></td>
+            <td data-label="Kode Motor">KZLN</td>
+            <td data-label="Tahun Pembuatan">Mei 2011 - 2018</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">16</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy</a></td>
+            <td data-label="Kode Motor">KYT</td>
+            <td data-label="Tahun Pembuatan">2010 - 2013</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">17</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy FI - 1</a></td>
+            <td data-label="Kode Motor">K16</td>
+            <td data-label="Tahun Pembuatan">2013 - 2015</td>
+            <td data-label="No Seri Mesin">JFG1E</td>
+            <td data-label="No Seri Rangka">MH1JFG1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">18</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy FI - 2</a></td>
+            <td data-label="Kode Motor">K16</td>
+            <td data-label="Tahun Pembuatan">2013 - 2015</td>
+            <td data-label="No Seri Mesin">JFG1E<br>JFL1E</td>
+            <td data-label="No Seri Rangka">MH1JFG1<br>MH1JFL1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">19</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy eSP</a></td>
+            <td data-label="Kode Motor">K16</td>
+            <td data-label="Tahun Pembuatan">Maret 2015 - 2017</td>
+            <td data-label="No Seri Mesin">JFG1E<br>JFL1E<br>JFW1E</td>
+            <td data-label="No Seri Rangka">MH1JFG1<br>MH1JFL1<br>MH1JFW1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">20</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy eSP</a></td>
+            <td data-label="Kode Motor">K93</td>
+            <td data-label="Tahun Pembuatan">April 2017 - 2018</td>
+            <td data-label="No Seri Mesin">JM31E</td>
+            <td data-label="No Seri Rangka">MH1JM31</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">21</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy eSP</a></td>
+            <td data-label="Kode Motor">K93H</td>
+            <td data-label="Tahun Pembuatan">Februari 2018 - 2020</td>
+            <td data-label="No Seri Mesin">JM31E</td>
+            <td data-label="No Seri Rangka">MH1JM31</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">22</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy eSP</a></td>
+            <td data-label="Kode Motor">K2F</td>
+            <td data-label="Tahun Pembuatan">November 2020 - November 2024</td>
+            <td data-label="No Seri Mesin">JM01E<br>JM02E</td>
+            <td data-label="No Seri Rangka">MH1JM01<br>MH1JM02</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">23</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Scoopy eSP K2FP</a></td>
+            <td data-label="Kode Motor">K2FP</td>
+            <td data-label="Tahun Pembuatan">November 2024</td>
+            <td data-label="No Seri Mesin">JMH2E<br>JMH1E</td>
+            <td data-label="No Seri Rangka">MH1JMH1<br>MH1JMH2</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">24</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario</a></td>
+            <td data-label="Kode Motor">KVB</td>
+            <td data-label="Tahun Pembuatan">2006 - 2009</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">25</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario CBS</a></td>
+            <td data-label="Kode Motor">KVBS</td>
+            <td data-label="Tahun Pembuatan">2009 - 2013</td>
+            <td data-label="No Seri Mesin">JF11E<br>JF12E</td>
+            <td data-label="No Seri Rangka">MH1JF11<br>MH1JF12</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">26</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 110 FI</a></td>
+            <td data-label="Kode Motor">K46</td>
+            <td data-label="Tahun Pembuatan">2014 - 2015</td>
+            <td data-label="No Seri Mesin">JFH1E</td>
+            <td data-label="No Seri Rangka">MH1JFH1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">27</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 110 eSP</a></td>
+            <td data-label="Kode Motor">K46H</td>
+            <td data-label="Tahun Pembuatan">Februari 2015 - 2019</td>
+            <td data-label="No Seri Mesin">JFH1E0000001<br>JFX1E0000001<br>JFX1E1326601<br>JFX1E1097801</td>
+            <td data-label="No Seri Rangka">MH1JFH1<br>MH1JFX1<br>MH1JFX11<br>MH1JFY1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">28</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario Techno 125 - 1</a></td>
+            <td data-label="Kode Motor">KZRA</td>
+            <td data-label="Tahun Pembuatan">2012 - 2015</td>
+            <td data-label="No Seri Mesin">JFB1E<br>JFC1E</td>
+            <td data-label="No Seri Rangka">MH1JFB1<br>MH1JFC1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">29</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario Techno 125 - 2</a></td>
+            <td data-label="Kode Motor">KZRJ</td>
+            <td data-label="Tahun Pembuatan">2013 - 2015</td>
+            <td data-label="No Seri Mesin">JFB1E<br>JFC1E<br>JFF1E</td>
+            <td data-label="No Seri Rangka">MH1JFB1<br>MH1JFC1<br>MH1JFF1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">30</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 125</a></td>
+            <td data-label="Kode Motor">K60</td>
+            <td data-label="Tahun Pembuatan">Januari 2015 - 2018</td>
+            <td data-label="No Seri Mesin">JFU1E<br>JFV1E</td>
+            <td data-label="No Seri Rangka">MH1JFU1<br>MH1JFV1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">31</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 125</a></td>
+            <td data-label="Kode Motor">K60R</td>
+            <td data-label="Tahun Pembuatan">April 2018 - 2022</td>
+            <td data-label="No Seri Mesin">JFU1E0000001<br>JM41E0000001<br>JFV1E0000001<br>JM51E0000001</td>
+            <td data-label="No Seri Rangka">MH1JFU1<br>MH1JM41<br>MH1JFV1<br>MH1JM51</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">32</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 125</a></td>
+            <td data-label="Kode Motor">K2V</td>
+            <td data-label="Tahun Pembuatan">September 2022-2025</td>
+            <td data-label="No Seri Mesin">JMD1E0000001</td>
+            <td data-label="No Seri Rangka">MH1JMD1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">33</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 125</a></td>
+            <td data-label="Kode Motor">K2VB</td>
+            <td data-label="Tahun Pembuatan">September 2025 - Sekarang</td>
+            <td data-label="No Seri Mesin">JMJ1E<br>JMK2E<br>JMK1E</td>
+            <td data-label="No Seri Rangka">MH1JMJ1<br>MH1JMK2<br>MH1JMK1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">34</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 150</a></td>
+            <td data-label="Kode Motor">K59</td>
+            <td data-label="Tahun Pembuatan">Januari 2015 - 2018</td>
+            <td data-label="No Seri Mesin">KF11E</td>
+            <td data-label="No Seri Rangka">MH1KF11</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">35</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 150</a></td>
+            <td data-label="Kode Motor">K59J</td>
+            <td data-label="Tahun Pembuatan">April 2018 - 2022</td>
+            <td data-label="No Seri Mesin">KF41E1000009</td>
+            <td data-label="No Seri Rangka">MH1KF4115HK000009</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">36</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Vario 160</a></td>
+            <td data-label="Kode Motor">K2S</td>
+            <td data-label="Tahun Pembuatan">Februari 2022 - Sekarang</td>
+            <td data-label="No Seri Mesin">KFA1E<br>KF01E</td>
+            <td data-label="No Seri Rangka">MH1KFA1<br>MH1KF01</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">37</td>
+            <td data-label="Tipe Motor"><a href="#">Honda PCX 125</a></td>
+            <td data-label="Kode Motor">KWN</td>
+            <td data-label="Tahun Pembuatan">2010 - 2012</td>
+            <td data-label="No Seri Mesin">NC125DE</td>
+            <td data-label="No Seri Rangka">NC125D</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">38</td>
+            <td data-label="Tipe Motor"><a href="#">Honda PCX 150</a></td>
+            <td data-label="Kode Motor">KZY</td>
+            <td data-label="Tahun Pembuatan">2012 - 2014</td>
+            <td data-label="No Seri Mesin">KF12E</td>
+            <td data-label="No Seri Rangka">MLHKF129</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">39</td>
+            <td data-label="Tipe Motor"><a href="#">Honda PCX 150</a></td>
+            <td data-label="Kode Motor">K36J</td>
+            <td data-label="Tahun Pembuatan">2014 - 2018</td>
+            <td data-label="No Seri Mesin">KF18E</td>
+            <td data-label="No Seri Rangka">RLHKF18</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">40</td>
+            <td data-label="Tipe Motor"><a href="#">Honda PCX 150 K97</a></td>
+            <td data-label="Kode Motor">K97</td>
+            <td data-label="Tahun Pembuatan">Febuari 2018 - 2020</td>
+            <td data-label="No Seri Mesin">KF21E1000001<br>KF22E1000001</td>
+            <td data-label="No Seri Rangka">MH1KF2115HK000001<br>MH1KF2217HK000001</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">41</td>
+            <td data-label="Tipe Motor"><a href="#">Honda PCX 160</a></td>
+            <td data-label="Kode Motor">K1Z</td>
+            <td data-label="Tahun Pembuatan">Febuari 2021 - 2024</td>
+            <td data-label="No Seri Mesin">KF71E0000001<br>KF81E0000001<br>KF91E0000001</td>
+            <td data-label="No Seri Rangka">MH1KF71<br>MH1KF81<br>MH1KF91</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">42</td>
+            <td data-label="Tipe Motor"><a href="#">Honda PCX 160</a></td>
+            <td data-label="Kode Motor">K1ZV</td>
+            <td data-label="Tahun Pembuatan">Desember 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">KFE1E<br>KFE2E<br>KFE3E</td>
+            <td data-label="No Seri Rangka">MH1KFE1<br>MH1KFE2<br>MH1KFE3</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">43</td>
+            <td data-label="Tipe Motor"><a href="#">Honda ADV 150</a></td>
+            <td data-label="Kode Motor">K0W</td>
+            <td data-label="Tahun Pembuatan">Juni 2019 - 2022</td>
+            <td data-label="No Seri Mesin">KF51E1<br>KF61E1</td>
+            <td data-label="No Seri Rangka">MH1KF51<br>MH1KF61</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">44</td>
+            <td data-label="Tipe Motor"><a href="#">Honda ADV 160</a></td>
+            <td data-label="Kode Motor">K0WL</td>
+            <td data-label="Tahun Pembuatan">Juli 2022 - Sekarang</td>
+            <td data-label="No Seri Mesin">KFB1E0000001<br>KFB2E0000001</td>
+            <td data-label="No Seri Rangka">MH1KFB1<br>MH1KFB2</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">45</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Forza</a></td>
+            <td data-label="Kode Motor">K0B</td>
+            <td data-label="Tahun Pembuatan">September 2018 - Sekarang</td>
+            <td data-label="No Seri Mesin">MF13E</td>
+            <td data-label="No Seri Rangka">MLHMF</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">46</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Stylo 160</a></td>
+            <td data-label="Kode Motor">K3V</td>
+            <td data-label="Tahun Pembuatan">Februari 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">KFD1E<br>KFC1E</td>
+            <td data-label="No Seri Rangka">MH1KFD11<br>MH1KFC11</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">47</td>
+            <td data-label="Tipe Motor"><a href="#">Honda SH 150</a></td>
+            <td data-label="Kode Motor">K78</td>
+            <td data-label="Tahun Pembuatan">2017 - Sekarang</td>
+            <td data-label="No Seri Mesin">KF26E</td>
+            <td data-label="No Seri Rangka">RLHKF253</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">48</td>
+            <td data-label="Tipe Motor"><a href="#">Honda EM1</a></td>
+            <td data-label="Kode Motor">GJK</td>
+            <td data-label="Tahun Pembuatan">Januari 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">EF22E<br>EF21E</td>
+            <td data-label="No Seri Rangka">MH1EF22<br>MH1EF21</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">49</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CUV e:</a></td>
+            <td data-label="Kode Motor">K3N</td>
+            <td data-label="Tahun Pembuatan">November 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">EF32E<br>EF31E</td>
+            <td data-label="No Seri Rangka">MH1EF32<br>MH1EF31</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">50</td>
+            <td data-label="Tipe Motor"><a href="#">Honda ICON e:</a></td>
+            <td data-label="Kode Motor">GJR</td>
+            <td data-label="Tahun Pembuatan">November 2024 - Sekarang</td>
+            <td data-label="No Seri Mesin">EF41E</td>
+            <td data-label="No Seri Rangka">MH1EF41</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="sport">Katalog Suku Cadang Motor Honda Sport</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Tipe Motor</th>
+            <th>Kode Motor</th>
+            <th>Tahun Pembuatan</th>
+            <th>No Seri Mesin</th>
+            <th>No Seri Rangka</th>
+            <th>Download</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num" data-label="#">1</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CS1</a></td>
+            <td data-label="Kode Motor">KWC</td>
+            <td data-label="Tahun Pembuatan">2008 - 2014</td>
+            <td data-label="No Seri Mesin">JBA1E</td>
+            <td data-label="No Seri Rangka">MH1JBA</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">2</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Verza 150</a></td>
+            <td data-label="Kode Motor">K18</td>
+            <td data-label="Tahun Pembuatan">Januari 2013 - 2018</td>
+            <td data-label="No Seri Mesin">KC51E<br>KC52E</td>
+            <td data-label="No Seri Rangka">MH1KC511<br>MH1KC521</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">3</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Sonic 150R</a></td>
+            <td data-label="Kode Motor">K56</td>
+            <td data-label="Tahun Pembuatan">Agustus 2015 - Sekarang</td>
+            <td data-label="No Seri Mesin">KB11E</td>
+            <td data-label="No Seri Rangka">MH1KB11</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">4</td>
+            <td data-label="Tipe Motor"><a href="#">Honda GL Pro Max</a></td>
+            <td data-label="Kode Motor">KC5</td>
+            <td data-label="Tahun Pembuatan">1985 - 2005</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">5</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Mega Pro</a></td>
+            <td data-label="Kode Motor">KEH</td>
+            <td data-label="Tahun Pembuatan">1999 - 2009</td>
+            <td data-label="No Seri Mesin">KEHLE</td>
+            <td data-label="No Seri Rangka">MH1KEHL</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">6</td>
+            <td data-label="Tipe Motor"><a href="#">Honda New Mega Pro</a></td>
+            <td data-label="Kode Motor">KYE</td>
+            <td data-label="Tahun Pembuatan">2014 - 2018</td>
+            <td data-label="No Seri Mesin">KC31E<br>KC21E</td>
+            <td data-label="No Seri Rangka">MH1KC311<br>MH1KC211</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">7</td>
+            <td data-label="Tipe Motor"><a href="#">Honda New Mega Pro FI</a></td>
+            <td data-label="Kode Motor">KYE</td>
+            <td data-label="Tahun Pembuatan">Januari 2014 - 2018</td>
+            <td data-label="No Seri Mesin">KC61E</td>
+            <td data-label="No Seri Rangka">MH1KC61</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">8</td>
+            <td data-label="Tipe Motor"><a href="#">Honda NSR</a></td>
+            <td data-label="Kode Motor">KW6</td>
+            <td data-label="Tahun Pembuatan">1994 - 1998</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">9</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB150R StreetFire (Old)</a></td>
+            <td data-label="Kode Motor">K15</td>
+            <td data-label="Tahun Pembuatan">Desember 2012 - 2015</td>
+            <td data-label="No Seri Mesin">KC41E</td>
+            <td data-label="No Seri Rangka">MH1KC41</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">10</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB150R StreetFire (New)</a></td>
+            <td data-label="Kode Motor">K15G</td>
+            <td data-label="Tahun Pembuatan">Agustus 2015 - 2018</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">11</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB150R StreetFire</a></td>
+            <td data-label="Kode Motor">K15M</td>
+            <td data-label="Tahun Pembuatan">Juli 2018 - 2021</td>
+            <td data-label="No Seri Mesin">KC82E0<br>KC81E0<br>KC82E1<br>KC81E1<br>KCA2E0<br>KCA1E0</td>
+            <td data-label="No Seri Rangka">MH1KC82<br>MH1KC81<br>MH1KC821<br>MH1KC811<br>MH1KCA2<br>MH1KCA1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">12</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB150R StreetFire</a></td>
+            <td data-label="Kode Motor">K15P</td>
+            <td data-label="Tahun Pembuatan">Mei 2021 - Sekarang</td>
+            <td data-label="No Seri Mesin">KCD2E0<br>KCD1E0</td>
+            <td data-label="No Seri Rangka">MH1KCD2<br>MH1KCD1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">13</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Tiger 2000</a></td>
+            <td data-label="Kode Motor">KCJ</td>
+            <td data-label="Tahun Pembuatan">1993 - 2000</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">14</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Tiger Revo</a></td>
+            <td data-label="Kode Motor">KCJ</td>
+            <td data-label="Tahun Pembuatan">2006 - 2008</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">15</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 150R</a></td>
+            <td data-label="Kode Motor">CBU</td>
+            <td data-label="Tahun Pembuatan"></td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">16</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 150R</a></td>
+            <td data-label="Kode Motor">K45A</td>
+            <td data-label="Tahun Pembuatan">Agustus 2014 - 2016</td>
+            <td data-label="No Seri Mesin">KC71E</td>
+            <td data-label="No Seri Rangka">MH1KC71</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">17</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 150R</a></td>
+            <td data-label="Kode Motor">K45G</td>
+            <td data-label="Tahun Pembuatan">Februari 2016 - 2018</td>
+            <td data-label="No Seri Mesin"></td>
+            <td data-label="No Seri Rangka"></td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">18</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 150R</a></td>
+            <td data-label="Kode Motor">K45N</td>
+            <td data-label="Tahun Pembuatan">Oktober 2018 - 2021</td>
+            <td data-label="No Seri Mesin">KC92E</td>
+            <td data-label="No Seri Rangka">MH1KC</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">19</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 150R</a></td>
+            <td data-label="Kode Motor">K45R</td>
+            <td data-label="Tahun Pembuatan">Januari 2021 - Sekarang</td>
+            <td data-label="No Seri Mesin">KCB1E<br>KCC1E</td>
+            <td data-label="No Seri Rangka">MH1KCB1<br>MH1KCC1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">20</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 250R</a></td>
+            <td data-label="Kode Motor">CBU</td>
+            <td data-label="Tahun Pembuatan"></td>
+            <td data-label="No Seri Mesin">MC41E</td>
+            <td data-label="No Seri Rangka">MLHMC419</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">21</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 250RR</a></td>
+            <td data-label="Kode Motor">K64</td>
+            <td data-label="Tahun Pembuatan">November 2016 - 2020</td>
+            <td data-label="No Seri Mesin">MC31E<br>MC41E</td>
+            <td data-label="No Seri Rangka">MH1MC31<br>MH1MC41</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">22</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 250RR</a></td>
+            <td data-label="Kode Motor">K64J</td>
+            <td data-label="Tahun Pembuatan">Oktober 2020 - 2022</td>
+            <td data-label="No Seri Mesin">MC51E<br>MC61E<br>MC62E</td>
+            <td data-label="No Seri Rangka">MH1MC51<br>MH1MC61<br>MH1MC62</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">23</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR 250RR</a></td>
+            <td data-label="Kode Motor">K64N</td>
+            <td data-label="Tahun Pembuatan">September 2022 - Sekarang</td>
+            <td data-label="No Seri Mesin">MC71E<br>MC82E<br>MC81E</td>
+            <td data-label="No Seri Rangka">MH1MC71<br>MH1MC82<br>MH1MC81</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">24</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB150X</a></td>
+            <td data-label="Kode Motor">K3BA</td>
+            <td data-label="Tahun Pembuatan">Desember 2021 - Sekarang</td>
+            <td data-label="No Seri Mesin">KCE1E</td>
+            <td data-label="No Seri Rangka">MH1KCE1</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">25</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB500X</a></td>
+            <td data-label="Kode Motor">MJW</td>
+            <td data-label="Tahun Pembuatan"></td>
+            <td data-label="No Seri Mesin">PC44E</td>
+            <td data-label="No Seri Rangka">MLHPC46</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">26</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB650F</a></td>
+            <td data-label="Kode Motor">MJE</td>
+            <td data-label="Tahun Pembuatan"></td>
+            <td data-label="No Seri Mesin">RC74E</td>
+            <td data-label="No Seri Rangka">MLHRC7</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">27</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CRF 150L</a></td>
+            <td data-label="Kode Motor">K84</td>
+            <td data-label="Tahun Pembuatan">November 2017 - 2018</td>
+            <td data-label="No Seri Mesin">KD11E1000001</td>
+            <td data-label="No Seri Rangka">MH1KD1112HK000001</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">28</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CRF 150L</a></td>
+            <td data-label="Kode Motor">K84F</td>
+            <td data-label="Tahun Pembuatan">September 2018 - Sekarang</td>
+            <td data-label="No Seri Mesin">KD11E1039511</td>
+            <td data-label="No Seri Rangka">MH1KD1114HK040026</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">29</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CRF 250 Rally</a></td>
+            <td data-label="Kode Motor">KZZ</td>
+            <td data-label="Tahun Pembuatan">Desember 2016 - Sekarang</td>
+            <td data-label="No Seri Mesin">MD38E</td>
+            <td data-label="No Seri Rangka">MLHMD44</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">30</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CB150 Verza</a></td>
+            <td data-label="Kode Motor">K18H</td>
+            <td data-label="Tahun Pembuatan">Februari 2018 - Sekarang</td>
+            <td data-label="No Seri Mesin">KC02E0000001</td>
+            <td data-label="No Seri Rangka">MH1KC01<br>MH1KC02</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">31</td>
+            <td data-label="Tipe Motor"><a href="#">Honda ST125 Dax</a></td>
+            <td data-label="Kode Motor">K2W</td>
+            <td data-label="Tahun Pembuatan">Agustus 2022 - Sekarang</td>
+            <td data-label="No Seri Mesin">JB04E</td>
+            <td data-label="No Seri Rangka">MLHJB049</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">32</td>
+            <td data-label="Tipe Motor"><a href="#">Honda Monkey</a></td>
+            <td data-label="Kode Motor">K0F</td>
+            <td data-label="Tahun Pembuatan">Mei 2021 - Sekarang</td>
+            <td data-label="No Seri Mesin">JB03E</td>
+            <td data-label="No Seri Rangka">MLHJB039</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">33</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR1000RR-R-S1</a></td>
+            <td data-label="Kode Motor">MKF</td>
+            <td data-label="Tahun Pembuatan">September 2018</td>
+            <td data-label="No Seri Mesin">SC77E-5000001</td>
+            <td data-label="No Seri Rangka">JH2SC77A*KK200001<br>JH2SC77L*KK200001</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+          <tr>
+            <td class="num" data-label="#">34</td>
+            <td data-label="Tipe Motor"><a href="#">Honda CBR1000RR-R Fireblade</a></td>
+            <td data-label="Kode Motor">MKR</td>
+            <td data-label="Tahun Pembuatan">Januari 2024</td>
+            <td data-label="No Seri Mesin">SC82E-5300001</td>
+            <td data-label="No Seri Rangka">JH2SC82N*PK300001</td>
+            <td data-label="Download"><a href="#">Download</a></td>
+            <td data-label="Lihat Online"><a href="#">Lihat Online >></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script src="bom-index.js"></script>
+  <script>
+    (function(){
+      const wraps = document.querySelectorAll('.table-wrap');
+      wraps.forEach(wrap => {
+        const headRow = wrap.querySelector('thead tr');
+        if (headRow && headRow.children.length >= 8) {
+          headRow.removeChild(headRow.children[7]);
+        }
+
+        const heading = wrap.previousElementSibling;
+        const category = heading && heading.id ? heading.id : 'misc';
+        const rows = wrap.querySelectorAll('tbody tr');
+        const cleanName = (value) => {
+          return value
+            .replace(/\s+/g, ' ')
+            .trim()
+            .replace(/[\\\/:*?"<>|]+/g, '-');
+        };
+        rows.forEach(row => {
+          const nameCell = row.querySelector('td:nth-child(2)');
+          const codeCell = row.querySelector('td:nth-child(3)');
+          if (!nameCell || !codeCell) return;
+          const name = cleanName(nameCell.textContent);
+          const code = cleanName(codeCell.textContent);
+          if (!name || !code) return;
+          const file = `downloads/${category}/${name}_${code}.pdf`;
+          const encodedFile = encodeURI(file);
+          const nameLink = nameCell.querySelector('a');
+          const tds = row.querySelectorAll('td');
+          const downloadCell = tds[6];
+          const onlineCell = tds[7];
+          if (nameLink) {
+            nameLink.href = encodedFile;
+            nameLink.target = '_blank';
+            nameLink.rel = 'noopener';
+            nameLink.title = `View PDF ${name}`;
+          }
+          if (downloadCell) {
+            const a = downloadCell.querySelector('a');
+            if (a) {
+              a.href = encodedFile;
+              a.setAttribute('download', `${name}_${code}.pdf`);
+              a.target = '_self';
+              a.rel = '';
+              a.addEventListener('click', (event) => {
+                event.preventDefault();
+                const downloader = document.createElement('a');
+                downloader.href = encodedFile;
+                downloader.setAttribute('download', `${name}_${code}.pdf`);
+                document.body.appendChild(downloader);
+                downloader.click();
+                downloader.remove();
+              });
+            }
+          }
+          if (onlineCell) {
+            onlineCell.remove();
+          }
+        });
+      });
+    })();
+
+    (function(){
+      const input = document.getElementById('partSearchInput');
+      const voiceBtn = document.getElementById('moonshineVoiceBtn');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      const status = document.getElementById('searchStatus');
+      const partResults = document.getElementById('partResults');
+      const rows = Array.from(document.querySelectorAll('tbody tr'));
+
+      if (!input || !voiceBtn || !clearBtn || !status || !partResults || rows.length === 0) return;
+
+      const normalizeText = (value) => {
+        return (value || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      };
+
+      const simplifyVoiceQuery = (value) => {
+        return normalizeText(value)
+          .replace(/\b(cari|carikan|tipe|motor|nama|yang|saya|mau|tolong|dong|ini|itu)\b/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      };
+
+      const rowIndex = rows.map((row) => {
+        const cells = row.querySelectorAll('td');
+        const typeMotor = normalizeText(cells[1] ? cells[1].textContent : '');
+        const source = [
+          cells[1] ? cells[1].textContent : '',
+          cells[2] ? cells[2].textContent : '',
+          cells[4] ? cells[4].textContent : '',
+          cells[5] ? cells[5].textContent : ''
+        ].join(' ').toLowerCase().replace(/\s+/g, ' ').trim();
+        return { row, typeMotor, source };
+      });
+      const bomParts = window.BOM_INDEX && window.BOM_INDEX.parts ? window.BOM_INDEX.parts : null;
+      const bomEntries = bomParts
+        ? Object.entries(bomParts).flatMap(([partNumber, list]) =>
+            (list || []).map((entry) => ({
+              partNumber,
+              description: (entry.description || ''),
+              descriptionNorm: (entry.description || '').toLowerCase(),
+              motorNameNorm: (entry.motor_name || '').toLowerCase(),
+              entry
+            }))
+          )
+        : [];
+
+      const normalizePartQuery = (value) => {
+        const q = (value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+        const full = q.match(/^(\d{5})-?([A-Z0-9]{2,4})-?(\d{3})$/);
+        if (full) return `${full[1]}-${full[2]}-${full[3]}`;
+        return q;
+      };
+
+      const escapeHtml = (value) => {
+        return String(value || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      };
+
+      const renderPartResults = (query) => {
+        if (!query) {
+          partResults.classList.add('hidden');
+          partResults.innerHTML = '';
+          return;
+        }
+        if (!bomParts) {
+          partResults.classList.remove('hidden');
+          partResults.innerHTML = '<div class="part-row">Index BOM belum dimuat. Pastikan file <strong>bom-index.js</strong> ada di folder yang sama.</div>';
+          return;
+        }
+
+        const normalized = normalizePartQuery(query);
+        const queryNorm = normalizeText(query);
+        const queryTokens = queryNorm.split(' ').filter((t) => t.length >= 2);
+        if (!normalized) {
+          partResults.classList.add('hidden');
+          partResults.innerHTML = '';
+          return;
+        }
+
+        const keys = Object.keys(bomParts);
+        const normalizedCompact = normalized.replace(/[^A-Z0-9]/g, '');
+        let mode = "part";
+        let matchedKeys = [];
+        let matchedEntries = [];
+        if (/^\d{5}-[A-Z0-9]{2,4}-\d{3}$/.test(normalized)) {
+          if (bomParts[normalized]) matchedKeys = [normalized];
+        } else if (normalized.length >= 5 && /\d/.test(normalized)) {
+          matchedKeys = keys
+            .filter((k) => {
+              const keyCompact = k.replace(/[^A-Z0-9]/g, '');
+              return k.includes(normalized) || keyCompact.includes(normalizedCompact);
+            })
+            .slice(0, 20);
+        } else if (queryTokens.length > 0) {
+          mode = "description";
+          const scored = bomEntries
+            .map((item) => {
+              let score = 0;
+              if (item.descriptionNorm.includes(queryNorm)) score += 8;
+              if (item.motorNameNorm.includes(queryNorm)) score += 3;
+              queryTokens.forEach((tk) => {
+                if (item.descriptionNorm.includes(tk)) score += 2;
+                if (item.motorNameNorm.includes(tk)) score += 1;
+              });
+              return { item, score };
+            })
+            .filter((x) => x.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 60);
+          matchedEntries = scored.map((x) => x.item);
+        }
+
+        if (matchedKeys.length === 0 && matchedEntries.length === 0) {
+          partResults.classList.remove('hidden');
+          partResults.innerHTML = `<div class="part-row">Part number <strong>${escapeHtml(query)}</strong> tidak ditemukan di index BOM.</div>`;
+          status.textContent = `Tidak ditemukan hasil BOM untuk "${query}".`;
+          return;
+        }
+
+        const html = [];
+        let count = 0;
+        if (mode === "description") {
+          matchedEntries.forEach((item) => {
+            count += 1;
+            const key = item.partNumber;
+            const entry = item.entry;
+            const pdfPath = `downloads/${entry.pdf}`;
+            const viewerHref = `pdf-highlight-viewer.html?file=${encodeURIComponent(pdfPath)}&page=${entry.page}&search=${encodeURIComponent(key)}`;
+            html.push(
+              `<div class="part-row"><strong>${escapeHtml(key)}</strong> - ${escapeHtml(entry.motor_name)} (${escapeHtml(entry.motor_code)}) | ${escapeHtml(entry.category)} | ${escapeHtml(entry.description || '-')} | Hal. ${entry.page} | <a href="${viewerHref}" target="_blank" rel="noopener">Buka PDF</a></div>`
+            );
+          });
+        } else {
+          matchedKeys.forEach((key) => {
+            const items = bomParts[key] || [];
+            items.slice(0, 15).forEach((entry) => {
+              count += 1;
+              const pdfPath = `downloads/${entry.pdf}`;
+              const viewerHref = `pdf-highlight-viewer.html?file=${encodeURIComponent(pdfPath)}&page=${entry.page}&search=${encodeURIComponent(key)}`;
+              html.push(
+                `<div class="part-row"><strong>${escapeHtml(key)}</strong> - ${escapeHtml(entry.motor_name)} (${escapeHtml(entry.motor_code)}) | ${escapeHtml(entry.category)} | ${escapeHtml(entry.description || '-')} | Hal. ${entry.page} | <a href="${viewerHref}" target="_blank" rel="noopener">Buka PDF</a></div>`
+              );
+            });
+          });
+        }
+
+        if (count === 0) {
+          partResults.classList.remove('hidden');
+          partResults.innerHTML = `<div class="part-row">Tidak ada hasil BOM untuk <strong>${escapeHtml(query)}</strong>.</div>`;
+          status.textContent = `Tidak ada hasil BOM untuk "${query}".`;
+          return;
+        }
+        partResults.classList.remove('hidden');
+        partResults.innerHTML = html.join('');
+        status.textContent = `Ditemukan ${count} hasil BOM untuk "${query}".`;
+      };
+
+      const applyFilter = (value, scrollToFirst) => {
+        const query = normalizeText(value);
+        const simplified = simplifyVoiceQuery(value);
+        let shown = 0;
+        let firstMatch = null;
+
+        rowIndex.forEach((entry) => {
+          const match = query === '' ||
+            entry.typeMotor.includes(query) ||
+            entry.source.includes(query) ||
+            (simplified && (entry.typeMotor.includes(simplified) || entry.source.includes(simplified)));
+          entry.row.classList.toggle('row-hidden', !match);
+          if (match) {
+            shown += 1;
+            if (!firstMatch) firstMatch = entry.row;
+          }
+        });
+
+        if (query === '') {
+          status.textContent = 'Cari tipe motor, no part, atau deskripsi. Voice tetap aktif untuk tipe motor.';
+          return;
+        }
+        if (shown === 0) {
+          status.textContent = `Tidak ada hasil untuk "${value}".`;
+          return;
+        }
+        status.textContent = `Menampilkan ${shown} hasil tipe motor untuk "${value}".`;
+        if (scrollToFirst && firstMatch) {
+          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      };
+
+      input.addEventListener('input', () => applyFilter(input.value, false));
+      input.addEventListener('input', () => renderPartResults(input.value));
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        applyFilter('', false);
+        renderPartResults('');
+        input.focus();
+      });
+
+      const setListeningState = (isListening) => {
+        voiceBtn.disabled = isListening;
+        voiceBtn.textContent = isListening ? 'Mendengarkan...' : 'Moonshine Voice';
+      };
+
+      const setTranscript = (text) => {
+        const cleaned = (text || '').trim();
+        if (!cleaned) return;
+        input.value = cleaned;
+        applyFilter(cleaned, true);
+        renderPartResults(cleaned);
+      };
+
+      async function startMoonshineVoice(){
+        if (!window.moonshine || typeof window.moonshine.listen !== 'function') {
+          throw new Error('Moonshine SDK belum dimuat.');
+        }
+        const transcript = await window.moonshine.listen({
+          language: 'id-ID',
+          prompt: 'Cari tipe motor Honda'
+        });
+        setTranscript(transcript);
+      }
+
+      function startWebSpeechFallback(){
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          status.textContent = 'Browser ini belum mendukung voice recognition.';
+          setListeningState(false);
+          return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'id-ID';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        setListeningState(true);
+        status.textContent = 'Silakan sebutkan tipe motor yang ingin dicari...';
+
+        recognition.onresult = (event) => {
+          const result = event.results && event.results[0] && event.results[0][0] ? event.results[0][0].transcript : '';
+          setTranscript(result);
+        };
+        recognition.onerror = () => {
+          status.textContent = 'Gagal membaca suara. Coba ulangi.';
+        };
+        recognition.onend = () => {
+          setListeningState(false);
+        };
+
+        recognition.start();
+      }
+
+      voiceBtn.addEventListener('click', async () => {
+        setListeningState(true);
+        status.textContent = 'Memulai Voice untuk pencarian tipe motor...';
+        try {
+          await startMoonshineVoice();
+          setListeningState(false);
+        } catch (err) {
+          startWebSpeechFallback();
+          if (voiceBtn.disabled === false) {
+            status.textContent = 'Voice belum aktif, memakai voice browser.';
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

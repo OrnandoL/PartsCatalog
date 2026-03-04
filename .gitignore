@@ -1,0 +1,45 @@
+﻿# OS / file explorer
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+
+# Env and secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Dependency and build output
+node_modules/
+dist/
+build/
+out/
+.cache/
+
+# Local-only workspace folders (do not publish)
+scripts/
+moonshine/
+private/
+raw/
+exports/
+
+# Optional local source variants
+part-catalog.html
+part-catalog-blogger.html
+part-catalog-no-voice.html
+
+# Large local data snapshots
+bom-index.json
+bom-delta-report.json
+bom-delta-report.txt
