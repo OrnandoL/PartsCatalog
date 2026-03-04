@@ -1458,6 +1458,7 @@
               description: (entry.description || ''),
               descriptionNorm: (entry.description || '').toLowerCase(),
               motorNameNorm: (entry.motor_name || '').toLowerCase(),
+              motorCodeNorm: (entry.motor_code || '').toLowerCase(),
               entry
             }))
           )
@@ -1533,8 +1534,31 @@
         let matchedEntries = [];
         const runDescriptionSearch = () => {
           mode = "description";
+          const alphaTokens = queryTokens.filter((t) => /[a-z]/i.test(t));
+          const numberTokens = queryTokens.filter((t) => /\d/.test(t));
+          const shouldRequireDescKeyword = alphaTokens.length >= 2;
+
           const scored = bomEntries
             .map((item) => {
+              const combined = `${item.descriptionNorm} ${item.motorNameNorm} ${item.motorCodeNorm}`;
+              const matchedTokens = queryTokens.filter((tk) => combined.includes(tk));
+              const descMatchedTokens = alphaTokens.filter((tk) => item.descriptionNorm.includes(tk));
+              const numberMatchedTokens = numberTokens.filter((tk) => combined.includes(tk));
+
+              // Keep only entries with enough token coverage for multi-word queries.
+              if (queryTokens.length >= 2 && matchedTokens.length < Math.min(2, queryTokens.length)) {
+                return { item, score: 0 };
+              }
+              // For keyword-style queries (e.g. "tire vario 150"), ensure at least
+              // one alpha keyword appears in description so non-relevant lines drop.
+              if (shouldRequireDescKeyword && descMatchedTokens.length === 0) {
+                return { item, score: 0 };
+              }
+              // If user includes numeric token, prefer entries that actually contain it.
+              if (numberTokens.length > 0 && numberMatchedTokens.length === 0) {
+                return { item, score: 0 };
+              }
+
               let score = 0;
               if (item.descriptionNorm.includes(queryNorm)) score += 8;
               if (item.motorNameNorm.includes(queryNorm)) score += 3;
@@ -1542,6 +1566,8 @@
                 if (item.descriptionNorm.includes(tk)) score += 2;
                 if (item.motorNameNorm.includes(tk)) score += 1;
               });
+              score += matchedTokens.length * 3;
+              score += descMatchedTokens.length * 2;
               return { item, score };
             })
             .filter((x) => x.score > 0)
