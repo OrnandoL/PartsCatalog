@@ -1,0 +1,345 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Honda Rider Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --honda-red:#e10600;
+      --honda-dark:#0e1116;
+      --honda-ink:#1b2230;
+      --honda-light:#f7f8fa;
+      --honda-white:#ffffff;
+      --honda-line:#d9dde5;
+      --honda-accent:#ffb300;
+      --radius:16px;
+      --shadow:0 14px 30px rgba(10,16,28,.12);
+    }
+
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{
+      font-family:"Plus Jakarta Sans",sans-serif;
+      background:
+        radial-gradient(1200px 600px at 100% -20%, rgba(225,6,0,.16), transparent 58%),
+        radial-gradient(900px 460px at -10% -10%, rgba(255,179,0,.10), transparent 55%),
+        var(--honda-light);
+      color:var(--honda-ink);
+    }
+
+    .wrap{max-width:1180px;margin:0 auto;padding:20px;}
+
+    .topbar{
+      background:var(--honda-white);
+      border:1px solid var(--honda-line);
+      border-radius:999px;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .brand-badge{
+      width:38px;height:38px;border-radius:50%;
+      background:var(--honda-red);
+      color:#fff;display:grid;place-items:center;
+      font-family:"Bebas Neue",sans-serif;
+      font-size:22px;
+    }
+
+    .menu{display:flex;gap:16px;flex-wrap:wrap;}
+    .menu a{text-decoration:none;color:var(--honda-ink);font-weight:700;font-size:14px;}
+
+    .hero{
+      margin-top:16px;
+      background:linear-gradient(125deg, #0c1118 0%, #161d2a 45%, #2a3446 100%);
+      border-radius:var(--radius);
+      color:#fff;
+      padding:32px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .hero:before,
+    .hero:after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      pointer-events:none;
+    }
+
+    .hero:before{
+      width:360px;height:360px;
+      background:rgba(225,6,0,.4);
+      top:-180px;right:-120px;
+    }
+
+    .hero:after{
+      width:260px;height:260px;
+      background:rgba(255,179,0,.25);
+      bottom:-130px;left:-80px;
+    }
+
+    .hero h1{
+      margin:0;
+      font-family:"Bebas Neue",sans-serif;
+      letter-spacing:1.1px;
+      line-height:1;
+      font-size:clamp(46px,8vw,92px);
+      position:relative;
+      z-index:1;
+    }
+
+    .hero p{
+      margin:14px 0 0;
+      max-width:720px;
+      font-size:17px;
+      position:relative;
+      z-index:1;
+      opacity:.95;
+    }
+
+    .hero-cta{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
+
+    .btn{
+      border:0;
+      border-radius:999px;
+      text-decoration:none;
+      padding:11px 18px;
+      font-weight:800;
+      font-size:14px;
+      display:inline-block;
+    }
+
+    .btn-primary{background:var(--honda-red);color:#fff;}
+    .btn-secondary{background:#fff;color:#101726;}
+
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:1.5fr .9fr;
+      gap:16px;
+    }
+
+    .panel{
+      background:var(--honda-white);
+      border:1px solid var(--honda-line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+      animation:rise .55s ease both;
+    }
+
+    .panel h2{
+      margin:0 0 12px;
+      font-size:20px;
+      font-weight:800;
+    }
+
+    .post-list{display:grid;gap:12px;}
+
+    .post{
+      border:1px solid var(--honda-line);
+      border-radius:14px;
+      padding:14px;
+      background:#fff;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .post:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(12,18,30,.1);}
+
+    .tag{
+      display:inline-block;
+      background:#fff0ef;
+      color:#b20900;
+      border:1px solid #ffc9c6;
+      border-radius:999px;
+      padding:4px 10px;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+
+    .post h3{margin:0 0 6px;font-size:18px;}
+    .post p{margin:0;color:#475066;font-size:14px;}
+
+    .quick-links{display:grid;gap:10px;}
+    .quick-links a{
+      text-decoration:none;
+      color:#0f1727;
+      border:1px solid var(--honda-line);
+      background:#fff;
+      border-radius:12px;
+      padding:12px;
+      font-weight:700;
+      display:block;
+    }
+
+    .quick-links a strong{color:var(--honda-red);}
+
+    .models{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .model-card{
+      background:var(--honda-white);
+      border:1px solid var(--honda-line);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow:var(--shadow);
+      animation:rise .65s ease both;
+    }
+
+    .model-card:nth-child(2){animation-delay:.08s;}
+    .model-card:nth-child(3){animation-delay:.16s;}
+
+    .model-card h3{margin:0 0 6px;font-size:19px;}
+    .model-card p{margin:0;color:#515a70;font-size:14px;}
+
+    .pill{
+      margin-top:12px;
+      display:inline-block;
+      font-size:12px;
+      font-weight:800;
+      color:#4b5565;
+      background:#eef1f5;
+      border-radius:999px;
+      padding:5px 10px;
+    }
+
+    footer{
+      margin:18px 0 8px;
+      background:#0f141e;
+      color:#dbe0ea;
+      border-radius:14px;
+      border:1px solid #202a3b;
+      padding:14px 16px;
+      font-size:13px;
+      text-align:center;
+    }
+
+    @keyframes rise{
+      from{opacity:0;transform:translateY(10px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    @media (max-width:980px){
+      .grid{grid-template-columns:1fr;}
+      .models{grid-template-columns:1fr 1fr;}
+    }
+
+    @media (max-width:640px){
+      .wrap{padding:12px;}
+      .topbar{border-radius:16px;}
+      .hero{padding:22px;}
+      .menu{display:none;}
+      .models{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">H</div>
+        <span>Honda Rider Journal</span>
+      </div>
+      <nav class="menu">
+        <a href="#">Beranda</a>
+        <a href="#">Review Motor</a>
+        <a href="#">Tips Servis</a>
+        <a href="https://mdpartscatalog.blogspot.com/2026/03/parts-catalog-sepeda-motor-honda.html">Katalog Part</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>RIDE RED. LIVE HONDA.</h1>
+      <p>Custom tema blog bertema sepeda motor Honda: tajam, cepat, dan fokus ke konten rider Indonesia. Cocok untuk review, tips servis, dan katalog suku cadang.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#">Lihat Artikel Terbaru</a>
+        <a class="btn btn-secondary" href="https://mdpartscatalog.blogspot.com/2026/03/parts-catalog-sepeda-motor-honda.html">Buka Katalog Part</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Artikel Unggulan</h2>
+        <div class="post-list">
+          <div class="post">
+            <span class="tag">Performa</span>
+            <h3>Perbandingan Honda Vario 160 vs PCX 160 untuk Harian</h3>
+            <p>Bahas konsumsi BBM, kenyamanan, bagasi, dan biaya servis rutin dalam penggunaan kota.</p>
+          </div>
+          <div class="post">
+            <span class="tag">Perawatan</span>
+            <h3>Jadwal Ganti Oli Motor Honda yang Aman untuk Mesin</h3>
+            <p>Panduan kilometer, tipe oli, dan tanda oli sudah menurun agar mesin tetap halus.</p>
+          </div>
+          <div class="post">
+            <span class="tag">Suku Cadang</span>
+            <h3>Cara Cek Kode Part Honda Supaya Tidak Salah Beli</h3>
+            <p>Langkah cepat cocokkan model, kode mesin, dan no rangka sebelum checkout.</p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <h2>Akses Cepat</h2>
+        <div class="quick-links">
+          <a href="https://mdpartscatalog.blogspot.com/2026/03/parts-catalog-sepeda-motor-honda.html#cub"><strong>•</strong> Katalog Part Honda Cub</a>
+          <a href="https://mdpartscatalog.blogspot.com/2026/03/parts-catalog-sepeda-motor-honda.html#matic"><strong>•</strong> Katalog Part Honda Matic</a>
+          <a href="https://mdpartscatalog.blogspot.com/2026/03/parts-catalog-sepeda-motor-honda.html#sport"><strong>•</strong> Katalog Part Honda Sport</a>
+          <a href="https://mdpartscatalog.blogspot.com/search/label/Panduan%20Servis"><strong>•</strong> Panduan Servis Berkala</a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="models">
+      <div class="model-card">
+        <h3>Honda BeAT Series</h3>
+        <p>Fokus konten harian: irit, lincah, dan tips perawatan CVT untuk stop-and-go city riding.</p>
+        <span class="pill">Urban Scooter</span>
+      </div>
+      <div class="model-card">
+        <h3>Honda CBR Family</h3>
+        <p>Konten sporty: setup ban, rem, ergonomi touring, dan penggantian part berkala.</p>
+        <span class="pill">Sport Racing DNA</span>
+      </div>
+      <div class="model-card">
+        <h3>Honda ADV / PCX</h3>
+        <p>Tema premium adventure: kenyamanan jarak menengah dan checklist riding aman.</p>
+        <span class="pill">Premium Commuter</span>
+      </div>
+    </section>
+
+    <footer>
+      Copyright 2026 Honda Rider Journal. All rights reserved.
+    </footer>
+  </div>
+</body>
+</html>
