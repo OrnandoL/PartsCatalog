@@ -1555,6 +1555,7 @@
           const alphaTokens = queryTokens.filter((t) => /[a-z]/i.test(t));
           const numberTokens = queryTokens.filter((t) => /\d/.test(t));
           const shouldRequireDescKeyword = alphaTokens.length >= 2;
+          const primaryAlphaToken = alphaTokens.length > 0 ? alphaTokens[0] : '';
 
           const scored = bomEntries
             .map((item) => {
@@ -1573,6 +1574,11 @@
               // For keyword-style queries (e.g. "tire vario 150"), ensure at least
               // one alpha keyword appears in description so non-relevant lines drop.
               if (shouldRequireDescKeyword && descMatchedTokens.length === 0) {
+                return { item, score: 0 };
+              }
+              // Query intent usually starts with component keyword (e.g. "tire pcx 160").
+              // Require the first alpha token to exist in description to avoid noise lines.
+              if (primaryAlphaToken && !item.descriptionNorm.includes(primaryAlphaToken)) {
                 return { item, score: 0 };
               }
               // If user includes numeric token, prefer entries that actually contain it.
