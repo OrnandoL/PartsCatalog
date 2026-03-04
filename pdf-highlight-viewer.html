@@ -36,6 +36,7 @@
       flex-wrap:wrap;
       gap:10px;
       align-items:center;
+      justify-content:center;
     }
     .toolbar a{
       text-decoration:none;
@@ -50,11 +51,51 @@
     .meta{
       font-size:17px;
       color:var(--muted);
-      flex:1 1 320px;
+      flex:1 1 100%;
       min-width:220px;
       overflow:hidden;
       text-overflow:ellipsis;
       white-space:nowrap;
+      text-align:center;
+    }
+    .load-status{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:10px 12px;
+      margin:0 0 6px 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .load-text{
+      font-size:18px;
+      font-weight:700;
+      color:#9a3412;
+      text-align:center;
+    }
+    .progress-track{
+      width:min(520px, 90vw);
+      height:12px;
+      border-radius:999px;
+      background:#fde68a;
+      border:1px solid #f59e0b;
+      overflow:hidden;
+    }
+    .progress-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, #f59e0b, #d97706);
+      transition:width .2s ease;
+    }
+    .progress-num{
+      font-size:16px;
+      font-weight:700;
+      color:#92400e;
+      min-width:48px;
+      text-align:right;
     }
     .zoom-controls{
       display:flex;
@@ -161,6 +202,11 @@
       </div>
       <div class="meta" id="meta">Memuat PDF...</div>
     </div>
+    <div class="load-status" id="loadStatus">
+      <div class="load-text" id="loadText">Memuat PDF...</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-num" id="progressNum">0%</div>
+    </div>
     <div class="focus-info" id="focusInfo">Halaman - | Kata kunci -<small>Info cepat pencarian BOM</small></div>
     <div class="viewer">
       <div class="warn" id="warn"></div>
@@ -195,6 +241,10 @@
     const zoomInBtn = document.getElementById("zoomIn");
     const zoomResetBtn = document.getElementById("zoomReset");
     const zoomLevelEl = document.getElementById("zoomLevel");
+    const loadStatusEl = document.getElementById("loadStatus");
+    const loadTextEl = document.getElementById("loadText");
+    const progressFillEl = document.getElementById("progressFill");
+    const progressNumEl = document.getElementById("progressNum");
     const pdfCtx = pdfCanvas.getContext("2d");
     const hlCtx = hlCanvas.getContext("2d");
     const isMobile = window.innerWidth < 900;
@@ -203,6 +253,8 @@
     const ZOOM_STEP = 0.25;
     const DEFAULT_SCALE = isMobile ? 1.8 : 2.3;
     let currentScale = DEFAULT_SCALE;
+    let pdfDoc = null;
+    let pdfLoadingPromise = null;
 
     if (!file) {
       metaEl.textContent = "Parameter file tidak ditemukan.";
@@ -219,12 +271,48 @@
     const norm = (v) => String(v || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
     const targetNorm = norm(search);
 
+    function setLoadingState(show, text, percent) {
+      loadStatusEl.style.display = show ? "flex" : "none";
+      if (text) loadTextEl.textContent = text;
+      if (typeof percent === "number" && Number.isFinite(percent)) {
+        const safe = Math.max(0, Math.min(100, Math.round(percent)));
+        progressFillEl.style.width = `${safe}%`;
+        progressNumEl.textContent = `${safe}%`;
+      }
+    }
+
     function showFallback(message) {
+      setLoadingState(false);
       warnEl.style.display = "block";
       warnEl.textContent = "Panduan: tekan Ctrl + F, lalu ketik kata kunci part number untuk highlight/mencari dengan lebih mudah.";
       viewerStage.style.display = "none";
       pdfFrame.style.display = "block";
       pdfFrame.src = targetUrl;
+    }
+
+    async function getPdfDoc() {
+      if (pdfDoc) return pdfDoc;
+      if (pdfLoadingPromise) return pdfLoadingPromise;
+
+      setLoadingState(true, "Memuat PDF...", 0);
+      const loadingTask = pdfjsLib.getDocument(absolutePdfUrl);
+      loadingTask.onProgress = (progressData) => {
+        const loaded = progressData && progressData.loaded ? progressData.loaded : 0;
+        const total = progressData && progressData.total ? progressData.total : 0;
+        if (total > 0) {
+          setLoadingState(true, "Memuat PDF...", (loaded / total) * 100);
+        } else {
+          setLoadingState(true, "Memuat PDF...", null);
+        }
+      };
+      pdfLoadingPromise = loadingTask.promise.then((doc) => {
+        pdfDoc = doc;
+        setLoadingState(true, "Menyiapkan halaman...", 100);
+        return doc;
+      }).finally(() => {
+        pdfLoadingPromise = null;
+      });
+      return pdfLoadingPromise;
     }
 
     function centerPdfInView() {
@@ -241,8 +329,7 @@
     }
 
     async function renderWithHighlight() {
-      const loadingTask = pdfjsLib.getDocument(absolutePdfUrl);
-      const pdf = await loadingTask.promise;
+      const pdf = await getPdfDoc();
       const safePage = Math.min(Math.max(1, pageNum), pdf.numPages);
       const page = await pdf.getPage(safePage);
       const viewport = page.getViewport({ scale: currentScale });
@@ -252,6 +339,7 @@
       hlCanvas.width = viewport.width;
       hlCanvas.height = viewport.height;
 
+      setLoadingState(true, "Merender halaman...", 100);
       await page.render({ canvasContext: pdfCtx, viewport }).promise;
 
       hlCtx.clearRect(0, 0, hlCanvas.width, hlCanvas.height);
@@ -283,6 +371,7 @@
       metaEl.textContent = `File: ${absolutePdfUrl} | Zoom: ${Math.round(currentScale * 100)}% | Highlight: ${hitCount}`;
       focusInfoEl.innerHTML = `Halaman ${safePage} / ${pdf.numPages} | Kata kunci: ${search || "-"}<small>Highlight ditemukan: ${hitCount}</small>`;
       centerPdfInView();
+      setLoadingState(false);
     }
 
     async function applyZoom(scale) {
